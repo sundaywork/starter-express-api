@@ -32,12 +32,12 @@ app.all('/', async (req, res) => {
 })
 
 app.post('/api/save-subscription/', async function (req, res) {
-    console.log("getting call to /api/save-subscription/", req);
-    // res.header("Access-Control-Allow-Origin", "*")
-    // res.header(
-    //   "Access-Control-Allow-Headers",
-    //   "Origin, X-Requested, Content-Type, Accept Authorization"
-    // )
+    console.log("getting call to /api/save-subscription/", req.body);
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested, Content-Type, Accept Authorization"
+    )
 
     // Check the request body has at least an endpoint.
     if (!req.body || !req.body.endpoint) {
