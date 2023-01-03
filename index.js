@@ -41,8 +41,22 @@ app.all('/api/all-subscribers', async (req, res) => {
     console.log('all subscribers:', allSubscribers);
     res.send(allSubscribers);
 })
+
 app.all('/api/get-subscriber', async (req, res) => {
-    console.log("getting call to list all subscribers");
+    console.log("getting call to list a single subscriber");
+    let subscriber = await subscribers.get('04517A7A8F6980');
+    if (subscriber) {
+        console.log('find subscriber:', subscriber);
+        res.send(subscriber);
+    } else {
+        console.log("Subscriber not found")
+        res.send('Subscriber not found');
+    }
+    
+})
+
+app.all('/api/poke-subscriber', async (req, res) => {
+    console.log("getting call to poke a subscriber");
     let subscriber = await subscribers.get('04517A7A8F6980');
     if (subscriber) {
         console.log('find subscriber:', subscriber);

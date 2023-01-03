@@ -6,7 +6,7 @@ For receiving push subscriptions and send push notifications for ring payment.
 
 This is the simplest possible nodejs api using express that responds to any request with: 
 ```
-Yo!
+Good
 ```
 
 ### Deploy it in 7 seconds: 
