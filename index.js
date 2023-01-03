@@ -45,6 +45,12 @@ app.post('/api/save-subscription/', async function (req, res) {
         return false;
     }
 
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested, Content-Type, Accept Authorization"
+    )
+    
     console.log(req.body);
     res.send(req.body);
 
