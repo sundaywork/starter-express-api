@@ -21,8 +21,14 @@ run();
 
 
 const app = express()
-app.all('/', (req, res) => {
+app.all('/', async (req, res) => {
     console.log("Just got a request!")
-    res.send('Good')
+    let item = await animals.get("leo");
+    if (item) {
+        res.send(item);
+    } else {
+        res.send('Good');
+    }
+    
 })
 app.listen(process.env.PORT || 3000)
