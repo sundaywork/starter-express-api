@@ -41,6 +41,18 @@ app.all('/api/all-subscribers', async (req, res) => {
     console.log('all subscribers:', allSubscribers);
     res.send(allSubscribers);
 })
+app.all('/api/get-subscriber', async (req, res) => {
+    console.log("getting call to list all subscribers");
+    let subscriber = await subscribers.get('04517A7A8F6980');
+    if (subscriber) {
+        console.log('find subscriber:', subscriber);
+        res.send(subscriber);
+    } else {
+        console.log("Subscriber not found")
+        res.send('Subscriber not found');
+    }
+    
+})
 
 app.post('/api/save-subscription/', async function (req, res) {
     console.log("getting call to /api/save-subscription/", req.body);
