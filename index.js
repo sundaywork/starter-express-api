@@ -2,6 +2,8 @@
 
 const express = require('express')
 const cors = require('cors');
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
 const CyclicDb = require("@cyclic.sh/dynamodb")
 const db = CyclicDb("glorious-gray-duckCyclicDB")
