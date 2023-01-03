@@ -1,6 +1,7 @@
 // ref: https://web.dev/sending-messages-with-web-push-libraries/
 
 const express = require('express')
+const cors = require('cors');
 
 const CyclicDb = require("@cyclic.sh/dynamodb")
 const db = CyclicDb("glorious-gray-duckCyclicDB")
@@ -22,13 +23,22 @@ const subscribers = db.collection("subscribers")
 
 
 
-const app = express()
+const app = express(cors())
+app.options('*', cors());
+
 app.all('/', async (req, res) => {
     console.log("Just got a request!")
     res.send('Good');
 })
 
 app.post('/api/save-subscription/', async function (req, res) {
+    console.log("getting call to /api/save-subscription/")
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header(
+      "Access-Control-Allow-Headers",
+      "Origin, X-Requested, Content-Type, Accept Authorization"
+    )
+
     // Check the request body has at least an endpoint.
     if (!req.body || !req.body.endpoint) {
         // Not a valid subscription.
@@ -50,7 +60,7 @@ app.post('/api/save-subscription/', async function (req, res) {
       "Access-Control-Allow-Headers",
       "Origin, X-Requested, Content-Type, Accept Authorization"
     )
-    
+
     console.log(req.body);
     res.send(req.body);
 
