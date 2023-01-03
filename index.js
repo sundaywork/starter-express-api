@@ -2,8 +2,7 @@
 
 const express = require('express')
 const cors = require('cors');
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+
 
 const CyclicDb = require("@cyclic.sh/dynamodb")
 const db = CyclicDb("glorious-gray-duckCyclicDB")
@@ -27,6 +26,9 @@ const subscribers = db.collection("subscribers")
 
 const app = express(cors())
 app.options('*', cors());
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
 
 app.all('/', async (req, res) => {
     console.log("Just got a request!")
