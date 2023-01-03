@@ -5,7 +5,7 @@ const cors = require('cors');
 
 
 const CyclicDb = require("@cyclic.sh/dynamodb")
-const db = CyclicDb("glorious-gray-duckCyclicDB")
+const db = CyclicDb("jittery-hoodie-tunaCyclicDB")
 
 const subscribers = db.collection("subscribers")
 
