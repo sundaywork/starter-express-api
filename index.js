@@ -32,7 +32,14 @@ app.use(express.urlencoded({ extended: true }))
 
 app.all('/', async (req, res) => {
     console.log("Just got a request!")
-    res.send('Good');
+    res.send('Good ' + Date.now());
+})
+
+app.all('/api/all-subscribers', async (req, res) => {
+    console.log("getting call to list all subscribers");
+    let allSubscribers = await subscribers.list();
+    console.log('all subscribers:', allSubscribers);
+    res.send(allSubscribers);
 })
 
 app.post('/api/save-subscription/', async function (req, res) {
