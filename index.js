@@ -1,22 +1,24 @@
+// ref: https://web.dev/sending-messages-with-web-push-libraries/
+
 const express = require('express')
 
 const CyclicDb = require("@cyclic.sh/dynamodb")
 const db = CyclicDb("glorious-gray-duckCyclicDB")
 
-const animals = db.collection("animals")
+const subscribers = db.collection("subscribers")
 
-async function run() {
-    // create an item in collection with key "leo"
-    let leo = await animals.set("leo", {
-        type: "cat",
-        color: "orange"
-    })
+// async function saveScriber(id, peer) {
+//     // create an item in collection with key "leo"
+//     let user = await subscribers.set(id, {
+//         type: "cat",
+//         color: "orange"
+//     })
 
-    // get an item at key "leo" from collection animals
-    let item = await animals.get("leo")
-    console.log(item);
-}
-run();
+//     // get an item at key "leo" from collection animals
+//     let item = await animals.get("leo")
+//     console.log(item);
+// }
+// run();
 
 
 
@@ -31,4 +33,51 @@ app.all('/', async (req, res) => {
     }
     
 })
+
+app.post('/api/save-subscription/', async function (req, res) {
+    // Check the request body has at least an endpoint.
+    if (!req.body || !req.body.endpoint) {
+        // Not a valid subscription.
+        res.status(400);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(
+            JSON.stringify({
+                error: {
+                    id: 'no-endpoint',
+                    message: 'Subscription must have an endpoint.',
+                },
+            }),
+        );
+        return false;
+    }
+
+    console.log(req.body);
+    res.send(req.body);
+
+    // return await saveSubscriptionToDatabase(req.body)
+    // .then(function (subscriptionId) {
+    //   res.setHeader('Content-Type', 'application/json');
+    //   res.send(JSON.stringify({data: {success: true}}));
+    // })
+    // .catch(function (err) {
+    //   res.status(500);
+    //   res.setHeader('Content-Type', 'application/json');
+    //   res.send(
+    //     JSON.stringify({
+    //       error: {
+    //         id: 'unable-to-save-subscription',
+    //         message:
+    //           'The subscription was received but we were unable to save it to our database.',
+    //       },
+    //     }),
+    //   );
+    // });
+});
+
+async function saveSubscriptionToDatabase(subscription) {
+
+    let user = await subscribers.set('leo', subscription);
+    return user._id;
+}
+
 app.listen(process.env.PORT || 3000)
