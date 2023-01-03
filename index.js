@@ -97,7 +97,7 @@ async function saveSubscriptionToDatabase(payload) {
 
     let ownerId = payload.ownerId;
     let subscription = payload.subscription;
-    let user = await subscribers.set(ownerId, subscription);
+    let user = await subscribers.set(ownerId, {subscription: subscription});
     console.log(user);
     return ownerId;
 }
