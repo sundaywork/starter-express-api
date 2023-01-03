@@ -25,13 +25,7 @@ const subscribers = db.collection("subscribers")
 const app = express()
 app.all('/', async (req, res) => {
     console.log("Just got a request!")
-    let item = await animals.get("leo");
-    if (item) {
-        res.send(item);
-    } else {
-        res.send('Good');
-    }
-    
+    res.send('Good');
 })
 
 app.post('/api/save-subscription/', async function (req, res) {
